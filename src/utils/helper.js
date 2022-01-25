@@ -8,7 +8,7 @@ const getRequest = async ({ url }) => {
         });
         return { response: response.data };
     } catch (error) {
-        return { error: [{ name: 'server', message: 'There is some issue, Please try after some time' }] };
+        return { error: [{ name: 'server', message: `There is some issue, Please try after some time. ${error.message && error.message}`, data: error.response && error.response.data ? error.response.data : {} }] };
     }
 };
 module.exports = { getRequest };
