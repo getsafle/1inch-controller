@@ -1,0 +1,13 @@
+.git
+node_modules
+.nyc_output
+.npmrc
+
+# Terraform files
+.terraform
+*.tfstate*
+.DS_Store
+.vscode
+
+# Test file
+test.js
