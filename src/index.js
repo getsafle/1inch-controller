@@ -12,11 +12,18 @@ class OneInch {
 
     async getExchangeRate(toToken, fromToken, quantity) {
         const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${quantity}`
-        console.log("URL ", URL)
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
             throw error
         return response;
+    }
+
+    async getRawTransaction(walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance = 1) {
+        const URL = `${config.SWAP_URL}?fromTokenAddress=${fromContractAddress}&toTokenAddress=${toContractAddress}&amount=${fromQuantity}&fromAddress=${walletAddress}&slippage=${slippageTolerance}`
+        const { response, error } = await helper.getRequest({ url: URL });
+        if (error)
+            throw error
+        return response.tx;
     }
 }
 
