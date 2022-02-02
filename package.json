@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/getsafle/1inch-controller#readme",
   "dependencies": {
-    "axios": "^0.25.0"
+    "axios": "^0.25.0",
+    "web3-utils": "^1.7.0"
   }
 }
