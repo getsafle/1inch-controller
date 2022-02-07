@@ -16,6 +16,8 @@ class OneInch {
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
             throw error
+        delete response['toToken'];
+        delete response['fromToken'];
         return response;
     }
 }
