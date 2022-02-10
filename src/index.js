@@ -10,8 +10,8 @@ class OneInch {
         return response;
     }
 
-    async getExchangeRate(toToken, fromToken, quantity) {
-        const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${quantity}`
+    async getExchangeRate({ toContractAddress, fromContractAddress, fromQuantity }) {
+        const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromContractAddress}&toTokenAddress=${toContractAddress}&amount=${fromQuantity}`
         console.log("URL ", URL)
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
