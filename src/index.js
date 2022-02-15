@@ -8,7 +8,7 @@ class OneInch {
         const { response, error } = await helper.getRequest({ url: config.SUPPORTED_TOKENS_URL });
         if (error)
             throw error
-        return response;
+        return { tokens: Object.values(response.tokens) };
     }
 
     async getExchangeRate({ toContractAddress, fromContractAddress, fromQuantity }) {
@@ -20,6 +20,7 @@ class OneInch {
             throw error
         delete response['toToken'];
         delete response['fromToken'];
+        delete response['protocols']
         return response;
     }
 
