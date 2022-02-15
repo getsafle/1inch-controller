@@ -4,6 +4,8 @@ const web3Utils = require('web3-utils')
 
 class OneInch {
 
+    constructor() { }
+
     async getSupportedTokens() {
         const { response, error } = await helper.getRequest({ url: config.SUPPORTED_TOKENS_URL });
         if (error)
