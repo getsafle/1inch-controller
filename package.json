@@ -1,5 +1,5 @@
 {
-  "name": "1inch-controller",
+  "name": "@getsafle/1inch-controller",
   "version": "1.0.0",
   "description": "1inch controller for safle token swaps",
   "main": "src/index.js",
@@ -23,6 +23,10 @@
     {
       "name": "Arjun",
       "email": "arjun@getsafle.com"
+    },
+    {
+      "name": "Suraj",
+      "email": "surajsingla333@gmail.com"
     }
   ],
   "license": "ISC",
@@ -31,6 +35,7 @@
   },
   "homepage": "https://github.com/getsafle/1inch-controller#readme",
   "dependencies": {
-    "axios": "^0.25.0"
+    "axios": "^0.25.0",
+    "web3-utils": "^1.7.0"
   }
 }
