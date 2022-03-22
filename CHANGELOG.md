@@ -7,3 +7,7 @@
 - Added method to get exhange rate
 - Added method to get estimated gas
 - Added method to get raw transaction
+
+### 1.0.0 (2022-03-15)
+
+- Added pipelines to publish SDK to npm 
