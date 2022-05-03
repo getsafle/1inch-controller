@@ -36,7 +36,7 @@ class OneInch {
         return { estimatedGas: response.estimatedGas };
     }
 
-    async getRawTransaction({ walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance = 1 }) {
+    async getRawTransaction({ walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance }) {
         const _toContractAddress = web3Utils.toChecksumAddress(toContractAddress)
         const _fromContractAddress = web3Utils.toChecksumAddress(fromContractAddress)
         const _walletAddress = web3Utils.toChecksumAddress(walletAddress)
