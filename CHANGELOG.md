@@ -11,3 +11,7 @@
 ### 1.0.0 (2022-03-15)
 
 - Added pipelines to publish SDK to npm 
+
+### 1.0.1 (2022-05-03)
+
+- Updated method getRawTransaction to accept slippage as a parameter
