@@ -15,3 +15,7 @@
 ### 1.0.1 (2022-05-03)
 
 - Updated method getRawTransaction to accept slippage as a parameter
+
+### 1.0.2 (2022-05-05)
+
+- Updated package version to publish the package to npm
