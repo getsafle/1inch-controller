@@ -1,5 +1,5 @@
 const axios = require('axios');
-
+const {  ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST } } = require('./const')
 const getRequest = async ({ url }) => {
     try {
         const response = await axios({
@@ -11,5 +11,10 @@ const getRequest = async ({ url }) => {
         return { error: [{ name: 'server', message: `There is some issue, Please try after some time. ${error.message && error.message}`, data: error.response && error.response.data ? error.response.data : {} }] };
     }
 };
-module.exports = { getRequest };
+
+const setErrorResponse = (err) => {
+            return { err, message: TOKEN_PAIR_DOESNOT_EXIST };
+}
+
+module.exports = { getRequest, setErrorResponse };
 

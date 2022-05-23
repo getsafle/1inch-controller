@@ -9,7 +9,7 @@ class OneInch {
     async getSupportedTokens() {
         const { response, error } = await helper.getRequest({ url: config.SUPPORTED_TOKENS_URL });
         if (error)
-            throw error
+        throw helper.setErrorResponse(error)
         return { tokens: Object.values(response.tokens) };
     }
 
@@ -19,7 +19,8 @@ class OneInch {
         const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
-            throw error
+            throw helper.setErrorResponse(error)
+           
         delete response['toToken'];
         delete response['fromToken'];
         delete response['protocols']
@@ -32,7 +33,7 @@ class OneInch {
         const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
-            throw error
+            throw helper.setErrorResponse(error)
         return { estimatedGas: response.estimatedGas };
     }
 
@@ -43,7 +44,7 @@ class OneInch {
         const URL = `${config.SWAP_URL}?fromTokenAddress=${_fromContractAddress}&toTokenAddress=${_toContractAddress}&amount=${fromQuantity}&fromAddress=${_walletAddress}&slippage=${slippageTolerance}`
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
-            throw error
+            throw helper.setErrorResponse(error)
         return response.tx;
     }
 }
