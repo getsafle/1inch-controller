@@ -23,3 +23,9 @@
 ### 1.0.3 (2022-05-23)
 
 - Updated error handling to handle errors from the SDK
+
+### 1.0.4 (2022-05-24)
+
+- Added method to retun list of supported chains
+- Updated constructor to accept chain as a parameter
+- Updated methods to get base URL from helper according to chain selected 

@@ -4,19 +4,34 @@ const web3Utils = require('web3-utils')
 
 class OneInch {
 
-    constructor() { }
+    constructor(chain) {
+        this.chain = chain;
+     }
 
+    async getSupportedChains(){
+        return { chains: config.SUPPORTED_CHAINS };
+    }
+    
     async getSupportedTokens() {
-        const { response, error } = await helper.getRequest({ url: config.SUPPORTED_TOKENS_URL });
+        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        if (urlError){
+            throw helper.setErrorResponse(urlError)
+        }
+        const { response, error } = await helper.getRequest({ url: `${url}/tokens` });
         if (error)
         throw helper.setErrorResponse(error)
         return { tokens: Object.values(response.tokens) };
     }
 
     async getExchangeRate({ toContractAddress, fromContractAddress, fromQuantity }) {
+
+        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        if (urlError){
+            throw helper.setErrorResponse(urlError)
+        }
         const toToken = web3Utils.toChecksumAddress(toContractAddress)
         const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
-        const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
+        const URL = `${url}/quote?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
             throw helper.setErrorResponse(error)
@@ -28,9 +43,13 @@ class OneInch {
     }
 
     async getEstimatedGas({ toContractAddress, fromContractAddress, fromQuantity }) {
+        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        if (urlError){
+            throw helper.setErrorResponse(urlError)
+        }
         const toToken = web3Utils.toChecksumAddress(toContractAddress)
         const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
-        const URL = `${config.EXCHANGE_RATE_URL}?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
+        const URL = `${url}/quote?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
             throw helper.setErrorResponse(error)
@@ -38,10 +57,14 @@ class OneInch {
     }
 
     async getRawTransaction({ walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance }) {
+        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        if (urlError){
+            throw helper.setErrorResponse(urlError)
+        }
         const _toContractAddress = web3Utils.toChecksumAddress(toContractAddress)
         const _fromContractAddress = web3Utils.toChecksumAddress(fromContractAddress)
         const _walletAddress = web3Utils.toChecksumAddress(walletAddress)
-        const URL = `${config.SWAP_URL}?fromTokenAddress=${_fromContractAddress}&toTokenAddress=${_toContractAddress}&amount=${fromQuantity}&fromAddress=${_walletAddress}&slippage=${slippageTolerance}`
+        const URL = `${url}/swap?fromTokenAddress=${_fromContractAddress}&toTokenAddress=${_toContractAddress}&amount=${fromQuantity}&fromAddress=${_walletAddress}&slippage=${slippageTolerance}`
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
             throw helper.setErrorResponse(error)

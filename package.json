@@ -1,6 +1,6 @@
 {
   "name": "@getsafle/1inch-controller",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "1inch controller for safle token swaps",
   "main": "src/index.js",
   "scripts": {

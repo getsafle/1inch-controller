@@ -1,5 +1,6 @@
 const axios = require('axios');
-const {  ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST } } = require('./const')
+const {  ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST,INVALID_CHAIN_ERORR } } = require('./const');
+const { ONEINCH_BASE_URL } = require('../config');
 const getRequest = async ({ url }) => {
     try {
         const response = await axios({
@@ -16,5 +17,13 @@ const setErrorResponse = (err) => {
             return { err, message: TOKEN_PAIR_DOESNOT_EXIST };
 }
 
-module.exports = { getRequest, setErrorResponse };
+const getBaseURL = async (chain) => {
+    switch (chain) {
+        case 'ethereum':
+            return { url: `${ONEINCH_BASE_URL}/1` };
+        default:
+            return { error: INVALID_CHAIN_ERORR }
+}
+}
 
+module.exports = { getRequest, setErrorResponse, getBaseURL };
