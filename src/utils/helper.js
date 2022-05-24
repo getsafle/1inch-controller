@@ -13,16 +13,24 @@ const getRequest = async ({ url }) => {
     }
 };
 
+
 const setErrorResponse = (err) => {
+    switch (err.message) {
+        case INVALID_CHAIN_ERORR:
+            return { err, message: INVALID_CHAIN_ERORR }
+        default:
             return { err, message: TOKEN_PAIR_DOESNOT_EXIST };
+    }
 }
 
 const getBaseURL = async (chain) => {
     switch (chain) {
         case 'ethereum':
             return { url: `${ONEINCH_BASE_URL}/1` };
+        case 'polygon':
+            return { url: `${ONEINCH_BASE_URL}/137` };
         default:
-            return { error: INVALID_CHAIN_ERORR }
+            return { error:{ message: INVALID_CHAIN_ERORR }}
 }
 }
 

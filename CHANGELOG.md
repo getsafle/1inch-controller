@@ -29,3 +29,7 @@
 - Added method to retun list of supported chains
 - Updated constructor to accept chain as a parameter
 - Updated methods to get base URL from helper according to chain selected 
+
+### 1.0.5 (2022-05-24)
+
+- Added support for polygon chain
