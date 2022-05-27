@@ -29,6 +29,8 @@ const getBaseURL = async (chain) => {
             return { url: `${ONEINCH_BASE_URL}/1` };
         case 'polygon':
             return { url: `${ONEINCH_BASE_URL}/137` };
+            case 'bsc':
+                return { url: `${ONEINCH_BASE_URL}/56` };
         default:
             return { error:{ message: INVALID_CHAIN_ERORR }}
 }
