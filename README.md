@@ -34,3 +34,12 @@ await getRawTransaction({ walletAddress, toContractAddress, fromContractAddress,
 ```
 
 This will give us the raw transaction to swap the tokens on 1inch.
+
+
+### Get Approval Transaction
+
+```
+await getApprovalTransaction({ walletAddress,  fromContractAddress, fromQuantity })
+```
+
+This will give us the raw transaction to approve spender on 1inch.
