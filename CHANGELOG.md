@@ -37,3 +37,8 @@
 ### 1.0.6 (2022-05-24)
 
 - Added support for binance smart chain
+
+
+### 1.0.7 (2022-06-11)
+
+- Added method to apporve spender contract
