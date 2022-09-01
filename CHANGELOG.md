@@ -42,3 +42,7 @@
 ### 1.0.7 (2022-06-11)
 
 - Added method to apporve spender contract
+
+### 1.0.8 (2022-09-01)
+
+- Updated RPC URL
