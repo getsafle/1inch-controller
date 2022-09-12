@@ -46,3 +46,7 @@
 ### 1.0.8 (2022-09-01)
 
 - Updated RPC URL
+
+### 1.0.9 (2022-09-12)
+
+- Updated README file with the latest functional & non-functional documentation
