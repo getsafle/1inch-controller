@@ -3,5 +3,7 @@ module.exports = {
     SUPPORTED_CHAINS: ['ethereum', 'polygon', 'bsc'],
     ETHEREUM_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     SWAP_ROUTER_ADDRESS: '0x1111111254fb6c44bAC0beD2854e76F90643097d',
-    INFURA_RPC: 'https://mainnet.infura.io/v3/2851f8f32e8f4476bb4b9a7b9c6e5292',
+    ETH_RPC: 'https://mainnet.infura.io/v3/2851f8f32e8f4476bb4b9a7b9c6e5292',
+    POLYGON_RPC: 'https://polygon-rpc.com',
+    BSC_RPC: 'https://bsc-dataseed1.binance.org/'
 }
