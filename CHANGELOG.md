@@ -47,6 +47,10 @@
 
 - Updated RPC URL
 
-### 1.0.9 (2022-09-26)
+### 1.0.9 (2022-09-12)
 
-- Get correct RPC URL according to the selected chain.
+- Updated README file with the latest functional & non-functional documentation
+
+### 1.1.0 (2022-09-26)
+
+- Multichain support
