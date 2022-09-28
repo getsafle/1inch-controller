@@ -54,3 +54,7 @@
 ### 1.1.0 (2022-09-26)
 
 - Multichain support
+
+### 1.1.1 (2022-09-26)
+
+- Updated method to get list of supported tokens
