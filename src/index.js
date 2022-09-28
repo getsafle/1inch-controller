@@ -3,6 +3,8 @@ const helper = require('./utils/helper')
 const web3Utils = require('web3-utils')
 const { ethers, Contract } = require('ethers')
 const { TOKEN_CONTRACT_ABI } = require('./utils/tokenABI')
+const tokenList = require('@getsafle/safle-token-lists')
+
 
 class OneInch {
 
@@ -20,14 +22,8 @@ class OneInch {
     }
 
     async getSupportedTokens() {
-        const { url, error: urlError } = await helper.getBaseURL(this.chain);
-        if (urlError) {
-            throw helper.setErrorResponse(urlError)
-        }
-        const { response, error } = await helper.getRequest({ url: `${url}/tokens` });
-        if (error)
-            throw helper.setErrorResponse(error)
-        return { tokens: Object.values(response.tokens) };
+        const tokens = await tokenList.getTokensOneInch(this.chain);
+        return tokens;
     }
 
     async getExchangeRate({ toContractAddress, fromContractAddress, fromQuantity }) {
