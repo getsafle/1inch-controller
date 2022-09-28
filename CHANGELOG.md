@@ -50,3 +50,7 @@
 ### 1.0.9 (2022-09-12)
 
 - Updated README file with the latest functional & non-functional documentation
+
+### 1.1.0 (2022-09-26)
+
+- Multichain support

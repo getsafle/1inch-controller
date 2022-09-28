@@ -8,27 +8,32 @@ class OneInch {
 
     constructor(chain) {
         this.chain = chain;
-     }
+        const { url, error: urlError } = helper.getRPCURL(chain)
+        if (urlError) {
+            throw helper.setErrorResponse(urlError)
+        }
+        this.rpcUrl = url
+    }
 
-    async getSupportedChains(){
+    async getSupportedChains() {
         return { chains: config.SUPPORTED_CHAINS };
     }
-    
+
     async getSupportedTokens() {
         const { url, error: urlError } = await helper.getBaseURL(this.chain);
-        if (urlError){
+        if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
         const { response, error } = await helper.getRequest({ url: `${url}/tokens` });
         if (error)
-        throw helper.setErrorResponse(error)
+            throw helper.setErrorResponse(error)
         return { tokens: Object.values(response.tokens) };
     }
 
     async getExchangeRate({ toContractAddress, fromContractAddress, fromQuantity }) {
 
         const { url, error: urlError } = await helper.getBaseURL(this.chain);
-        if (urlError){
+        if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
         const toToken = web3Utils.toChecksumAddress(toContractAddress)
@@ -37,7 +42,7 @@ class OneInch {
         const { response, error } = await helper.getRequest({ url: URL });
         if (error)
             throw helper.setErrorResponse(error)
-           
+
         delete response['toToken'];
         delete response['fromToken'];
         delete response['protocols']
@@ -46,7 +51,7 @@ class OneInch {
 
     async getEstimatedGas({ toContractAddress, fromContractAddress, fromQuantity }) {
         const { url, error: urlError } = await helper.getBaseURL(this.chain);
-        if (urlError){
+        if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
         const toToken = web3Utils.toChecksumAddress(toContractAddress)
@@ -58,9 +63,9 @@ class OneInch {
         return { estimatedGas: response.estimatedGas };
     }
 
-     async getRawTransaction({ walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance }) {
+    async getRawTransaction({ walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance }) {
         const { url, error: urlError } = await helper.getBaseURL(this.chain);
-        if (urlError){
+        if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
         const _toContractAddress = web3Utils.toChecksumAddress(toContractAddress)
@@ -74,33 +79,34 @@ class OneInch {
     }
 
 
-    async approvalRawTransaction({ fromContractAddress, walletAddress, fromQuantity }) { {
-        if(fromContractAddress.toLowerCase()  === config.ETHEREUM_ADDRESS.toLowerCase()){
-            return { response: true }
+    async approvalRawTransaction({ fromContractAddress, walletAddress, fromQuantity }) {
+        {
+            if (fromContractAddress.toLowerCase() === config.ETHEREUM_ADDRESS.toLowerCase()) {
+                return { response: true }
+            }
+            const web3Provider = new ethers.providers.JsonRpcProvider(this.rpcUrl);
+            const contract = new Contract(fromContractAddress, TOKEN_CONTRACT_ABI, web3Provider);
+            const checkAllowance = await contract.allowance(walletAddress, config.SWAP_ROUTER_ADDRESS);
+
+            if (Number(checkAllowance) < fromQuantity) {
+
+                const { url, error: urlError } = await helper.getBaseURL(this.chain);
+                if (urlError) {
+                    throw helper.setErrorResponse(urlError)
+                }
+                const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
+                const URL = `${url}/approve/transaction?tokenAddress=${fromToken}&amount=${fromQuantity}`
+                const { response, error } = await helper.getRequest({ url: URL });
+                if (error)
+                    throw helper.setErrorResponse(error);
+
+                response.from = walletAddress;
+                response.gas = web3Utils.hexToNumber((await contract.estimateGas.approve(config.SWAP_ROUTER_ADDRESS, fromQuantity, { from: walletAddress }))._hex);
+                return { response };
+            }
+            else
+                return { response: true }
         }
-        const web3Provider = new ethers.providers.JsonRpcProvider(config.INFURA_RPC);
-        const contract = new Contract(fromContractAddress, TOKEN_CONTRACT_ABI, web3Provider);
-        const checkAllowance = await contract.allowance(walletAddress, config.SWAP_ROUTER_ADDRESS);
-
-        if (Number(checkAllowance) < fromQuantity) {
-
-        const { url, error: urlError } = await helper.getBaseURL(this.chain);
-        if (urlError){
-            throw helper.setErrorResponse(urlError)
-        }
-        const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
-        const URL = `${url}/approve/transaction?tokenAddress=${fromToken}&amount=${fromQuantity}`
-        const { response, error } = await helper.getRequest({ url: URL });
-        if (error)
-            throw helper.setErrorResponse(error);
-
-            response.from = walletAddress;
-            response.gas = web3Utils.hexToNumber((await contract.estimateGas.approve(config.SWAP_ROUTER_ADDRESS, fromQuantity))._hex);
-        return {response};
-    }
-    else
-        return { response: true }
-}
     }
 }
 
