@@ -26,7 +26,7 @@ const setErrorResponse = (err) => {
     }
 }
 
-const getBaseURL = async (chain) => {
+const getBaseURL = (chain) => {
     switch (chain) {
         case 'ethereum':
             return { url: `${ONEINCH_BASE_URL}/1` };
@@ -39,7 +39,7 @@ const getBaseURL = async (chain) => {
     }
 }
 
-const getRPCURL = async (chain) => {
+const getRPCURL = (chain) => {
     switch (chain) {
         case 'ethereum':
             return { url: ETH_RPC };
