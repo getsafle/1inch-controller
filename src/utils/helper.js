@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST, INVALID_CHAIN_ERORR, INSUFFICIENT_BALANCE } } = require('./const');
-const { ONEINCH_BASE_URL, ETH_RPC, POLYGON_RPC, BSC_RPC } = require('../config');
+const { ONEINCH_BASE_URL, ETH_RPC, POLYGON_RPC, BSC_RPC, ETH_GAS_API, POLYGON_GAS_API } = require('../config');
 
 const getRequest = async ({ url }) => {
     try {
@@ -52,4 +52,37 @@ const getRPCURL = (chain) => {
     }
 }
 
-module.exports = { getRequest, setErrorResponse, getBaseURL, getRPCURL };
+const getGasParams = async(chain) => {
+
+    let url;
+
+    if (chain === 'ethereum') {
+        url = ETH_GAS_API
+    } else {
+        url = POLYGON_GAS_API
+    }
+
+    const { response, error } = await getRequest({ url });
+
+    if (error) {
+        throw setErrorResponse(error)
+    }
+
+    let result;
+
+    if (chain === 'ethereum') {
+        result = {
+            maxFeePerGas: response.medium.suggestedMaxFeePerGas,
+            maxPriorityFeePerGas: response.medium.suggestedMaxPriorityFeePerGas,
+        }
+    } else {
+        result = {
+            maxFeePerGas: response.standard.maxFee,
+            maxPriorityFeePerGas: response.standard.maxPriorityFee,
+        }
+    }
+
+    return result;
+}
+
+module.exports = { getRequest, setErrorResponse, getBaseURL, getRPCURL, getGasParams };
