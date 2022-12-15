@@ -58,3 +58,7 @@
 ### 1.1.1 (2022-09-26)
 
 - Updated method to get list of supported tokens
+
+### 1.1.2 (2022-12-14)
+
+- Functions `getRawTransaction()` will throw an error `Insufficient balance.` if the `from` address does not have enough assets to swap.

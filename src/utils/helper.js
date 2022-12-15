@@ -1,6 +1,7 @@
 const axios = require('axios');
-const { ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST, INVALID_CHAIN_ERORR } } = require('./const');
+const { ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST, INVALID_CHAIN_ERORR, INSUFFICIENT_BALANCE } } = require('./const');
 const { ONEINCH_BASE_URL, ETH_RPC, POLYGON_RPC, BSC_RPC } = require('../config');
+
 const getRequest = async ({ url }) => {
     try {
         const response = await axios({
@@ -17,9 +18,11 @@ const getRequest = async ({ url }) => {
 const setErrorResponse = (err) => {
     switch (err.message) {
         case INVALID_CHAIN_ERORR:
-            return { err, message: INVALID_CHAIN_ERORR }
+            throw INVALID_CHAIN_ERORR;
+        case INSUFFICIENT_BALANCE:
+            throw INSUFFICIENT_BALANCE;
         default:
-            return { err, message: TOKEN_PAIR_DOESNOT_EXIST };
+            throw TOKEN_PAIR_DOESNOT_EXIST;
     }
 }
 

@@ -5,7 +5,6 @@ const { ethers, Contract } = require('ethers')
 const { TOKEN_CONTRACT_ABI } = require('./utils/tokenABI')
 const tokenList = require('@getsafle/safle-token-lists')
 
-
 class OneInch {
 
     constructor(chain) {
@@ -69,11 +68,15 @@ class OneInch {
         const _walletAddress = web3Utils.toChecksumAddress(walletAddress)
         const URL = `${url}/swap?fromTokenAddress=${_fromContractAddress}&toTokenAddress=${_toContractAddress}&amount=${fromQuantity}&fromAddress=${_walletAddress}&slippage=${slippageTolerance}`
         const { response, error } = await helper.getRequest({ url: URL });
-        if (error)
+
+        if (error && error[0].data.description.includes(`Not enough ${fromContractAddress} balance.`)) {
+            throw helper.setErrorResponse({ message: 'Insufficient balance.' })
+        } else if (error) {
             throw helper.setErrorResponse(error)
+        }
+
         return response.tx;
     }
-
 
     async approvalRawTransaction({ fromContractAddress, walletAddress, fromQuantity }) {
         {
