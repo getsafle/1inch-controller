@@ -66,3 +66,7 @@
 ### 1.1.3 (2022-12-14)
 
 - Removed the async declaration in the function `getBaseURL()` and `getRPCURL()`.
+
+### 1.1.4 (2022-12-14)
+
+- Output of the `approvalRawTransaction()` will be returned directly without the response object.

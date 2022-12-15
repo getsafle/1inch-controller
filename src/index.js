@@ -81,7 +81,7 @@ class OneInch {
     async approvalRawTransaction({ fromContractAddress, walletAddress, fromQuantity }) {
         {
             if (fromContractAddress.toLowerCase() === config.ETHEREUM_ADDRESS.toLowerCase()) {
-                return { response: true }
+                return true
             }
             const web3Provider = new ethers.providers.JsonRpcProvider(this.rpcUrl);
             const contract = new Contract(fromContractAddress, TOKEN_CONTRACT_ABI, web3Provider);
@@ -101,10 +101,10 @@ class OneInch {
 
                 response.from = walletAddress;
                 response.gas = web3Utils.hexToNumber((await contract.estimateGas.approve(config.SWAP_ROUTER_ADDRESS, fromQuantity, { from: walletAddress }))._hex);
-                return { response };
+                return response;
             }
             else
-                return { response: true }
+                return true
         }
     }
 }
