@@ -70,3 +70,7 @@
 ### 1.1.4 (2022-12-14)
 
 - Output of the `approvalRawTransaction()` will be returned directly without the response object.
+
+### 1.1.5 (2022-12-15)
+
+- Functions `approvalRawTransaction()` and `getRawTransaction()` will return the type2 raw transaction.

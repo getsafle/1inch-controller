@@ -4,6 +4,7 @@ const web3Utils = require('web3-utils')
 const { ethers, Contract } = require('ethers')
 const { TOKEN_CONTRACT_ABI } = require('./utils/tokenABI')
 const tokenList = require('@getsafle/safle-token-lists')
+const Web3 = require('web3');
 
 class OneInch {
 
@@ -75,7 +76,29 @@ class OneInch {
             throw helper.setErrorResponse(error)
         }
 
-        return response.tx;
+        if (this.chain === 'bsc') {
+            return response.tx
+        }
+
+        const { url: rpcURL } = helper.getRPCURL(this.chain);
+
+        const web3 = new Web3(new Web3.providers.HttpProvider(rpcURL));
+
+        const gasData = await helper.getGasParams(this.chain);
+
+        const rawTransaction = {
+            to: response.tx.to,
+            from: response.tx.from,
+            data: response.tx.data,
+            value: Web3.utils.numberToHex(response.tx.value),
+            gasLimit: response.tx.gas,
+            maxFeePerGas: Web3.utils.numberToHex(Web3.utils.toWei(Number(gasData.maxFeePerGas).toFixed(4), 'gwei')),
+            maxPriorityFeePerGas: Web3.utils.numberToHex(Web3.utils.toWei(Number(gasData.maxPriorityFeePerGas).toFixed(4), 'gwei')),
+            nonce: await web3.eth.getTransactionCount(response.tx.from),
+            chainId: config.CHAIN_ID(this.chain),
+        }
+
+        return rawTransaction;
     }
 
     async approvalRawTransaction({ fromContractAddress, walletAddress, fromQuantity }) {
@@ -101,7 +124,30 @@ class OneInch {
 
                 response.from = walletAddress;
                 response.gas = web3Utils.hexToNumber((await contract.estimateGas.approve(config.SWAP_ROUTER_ADDRESS, fromQuantity, { from: walletAddress }))._hex);
-                return response;
+
+                if (this.chain === 'bsc') {
+                    return response;
+                }
+
+                const { url: rpcURL } = helper.getRPCURL(this.chain);
+
+                const web3 = new Web3(new Web3.providers.HttpProvider(rpcURL));
+
+                const gasData = await helper.getGasParams(this.chain);
+
+                const output = {
+                    to: response.to,
+                    from: response.from,
+                    data: response.data,
+                    value: Web3.utils.numberToHex(response.value),
+                    gasLimit: response.gas,
+                    maxFeePerGas: Web3.utils.numberToHex(Web3.utils.toWei(Number(gasData.maxFeePerGas).toFixed(4), 'gwei')),
+                    maxPriorityFeePerGas: Web3.utils.numberToHex(Web3.utils.toWei(Number(gasData.maxPriorityFeePerGas).toFixed(4), 'gwei')),
+                    nonce: await web3.eth.getTransactionCount(response.from),
+                    chainId: config.CHAIN_ID(this.chain),
+                }
+
+                return output;
             }
             else
                 return true
