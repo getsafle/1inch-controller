@@ -27,7 +27,7 @@ class OneInch {
 
     async getExchangeRate({ toContractAddress, fromContractAddress, fromQuantity }) {
 
-        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        const { url, error: urlError } = helper.getBaseURL(this.chain);
         if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
@@ -45,7 +45,7 @@ class OneInch {
     }
 
     async getEstimatedGas({ toContractAddress, fromContractAddress, fromQuantity }) {
-        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        const { url, error: urlError } = helper.getBaseURL(this.chain);
         if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
@@ -59,7 +59,7 @@ class OneInch {
     }
 
     async getRawTransaction({ walletAddress, toContractAddress, fromContractAddress, toQuantity, fromQuantity, slippageTolerance }) {
-        const { url, error: urlError } = await helper.getBaseURL(this.chain);
+        const { url, error: urlError } = helper.getBaseURL(this.chain);
         if (urlError) {
             throw helper.setErrorResponse(urlError)
         }
@@ -89,7 +89,7 @@ class OneInch {
 
             if (Number(checkAllowance) < fromQuantity) {
 
-                const { url, error: urlError } = await helper.getBaseURL(this.chain);
+                const { url, error: urlError } = helper.getBaseURL(this.chain);
                 if (urlError) {
                     throw helper.setErrorResponse(urlError)
                 }
