@@ -74,3 +74,9 @@
 ### 1.1.5 (2022-12-15)
 
 - Functions `approvalRawTransaction()` and `getRawTransaction()` will return the type2 raw transaction.
+
+### 1.1.6 (2023-06-13)
+
+- Migrated 1inch API's from v4.0 to v5.0
+- Updated license in package.json
+- Updated infura API key
