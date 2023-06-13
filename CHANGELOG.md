@@ -78,3 +78,5 @@
 ### 1.1.6 (2023-06-13)
 
 - Migrated 1inch API's from v4.0 to v5.0
+- Updated license in package.json
+- Updated infura API key
