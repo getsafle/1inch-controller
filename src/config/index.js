@@ -1,5 +1,5 @@
 module.exports = {
-    ONEINCH_BASE_URL: 'https://safle.api.enterprise.1inch.exchange/v4.0',
+    ONEINCH_BASE_URL: 'https://safle.api.enterprise.1inch.exchange/v5.0',
     SUPPORTED_CHAINS: ['ethereum', 'polygon', 'bsc'],
     ETHEREUM_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     SWAP_ROUTER_ADDRESS: '0x1111111254fb6c44bAC0beD2854e76F90643097d',
