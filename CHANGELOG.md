@@ -84,3 +84,7 @@
 ### 1.1.7 (2023-06-17)
 
 - Updated polygon mainnet gasstation URL
+
+### 1.1.8 (2023-06-30)
+
+- Updated router contarct address
