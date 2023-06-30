@@ -7,7 +7,7 @@ module.exports = {
     POLYGON_RPC: 'https://polygon-mainnet.infura.io/v3/6145d532688844c4b6db32574d90e19f',
     BSC_RPC: 'https://bsc-dataseed1.binance.org/',
     ETH_GAS_API: 'https://gas-api.metaswap.codefi.network/networks/1/suggestedGasFees',
-    POLYGON_GAS_API: 'https://gasstation-mainnet.matic.network/v2',
+    POLYGON_GAS_API: 'https://gasstation.polygon.technology/v2',
     CHAIN_ID: (chain) => {
         if (chain === 'ethereum') {
             return 1;
