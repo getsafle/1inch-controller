@@ -2,7 +2,7 @@ module.exports = {
     ONEINCH_BASE_URL: 'https://safle.api.enterprise.1inch.exchange/v5.0',
     SUPPORTED_CHAINS: ['ethereum', 'polygon', 'bsc'],
     ETHEREUM_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
-    SWAP_ROUTER_ADDRESS: '0x1111111254fb6c44bAC0beD2854e76F90643097d',
+    SWAP_ROUTER_ADDRESS: '0x1111111254eeb25477b68fb85ed929f73a960582',
     ETH_RPC: 'https://mainnet.infura.io/v3/6145d532688844c4b6db32574d90e19f',
     POLYGON_RPC: 'https://polygon-mainnet.infura.io/v3/6145d532688844c4b6db32574d90e19f',
     BSC_RPC: 'https://bsc-dataseed1.binance.org/',

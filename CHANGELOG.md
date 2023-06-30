@@ -80,3 +80,7 @@
 - Migrated 1inch API's from v4.0 to v5.0
 - Updated license in package.json
 - Updated infura API key
+
+### 1.1.7 (2023-06-30)
+
+- Updated router contarct address
