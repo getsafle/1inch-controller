@@ -88,3 +88,8 @@
 ### 1.1.8 (2023-06-30)
 
 - Updated router contarct address
+
+### 1.1.9 (2023-07-05)
+
+- Updated 1Inch API base URL
+
