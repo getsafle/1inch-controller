@@ -10,7 +10,7 @@ const getRequest = async ({ url }) => {
         });
         return { response: response.data };
     } catch (error) {
-        return { error: [{ name: 'server', message: `There is some issue, Please try after some time. ${error.message && error.message}`, data: error.response && error.response.data ? error.response.data : {} }] };
+        return{ error: error.response.data}
     }
 };
 
@@ -18,11 +18,11 @@ const getRequest = async ({ url }) => {
 const setErrorResponse = (err) => {
     switch (err.message) {
         case INVALID_CHAIN_ERORR:
-            throw INVALID_CHAIN_ERORR;
+            return INVALID_CHAIN_ERORR;
         case INSUFFICIENT_BALANCE:
-            throw INSUFFICIENT_BALANCE;
+            return INSUFFICIENT_BALANCE;
         default:
-            throw TOKEN_PAIR_DOESNOT_EXIST;
+            return TOKEN_PAIR_DOESNOT_EXIST;
     }
 }
 
@@ -65,7 +65,7 @@ const getGasParams = async(chain) => {
     const { response, error } = await getRequest({ url });
 
     if (error) {
-        throw setErrorResponse(error)
+        return setErrorResponse(error)
     }
 
     let result;
