@@ -93,3 +93,7 @@
 
 - Updated 1Inch API base URL
 
+
+### 1.2.0 (2023-10-11)
+
+- Updated error handling from 1Inch API's
