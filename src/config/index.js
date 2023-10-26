@@ -1,5 +1,5 @@
 module.exports = {
-    ONEINCH_BASE_URL: 'https://api-safle.1inch.io/v5.0',
+    ONEINCH_BASE_URL: 'https://api.1inch.dev/swap/v5.2',
     SUPPORTED_CHAINS: ['ethereum', 'polygon', 'bsc'],
     ETHEREUM_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     SWAP_ROUTER_ADDRESS: '0x1111111254eeb25477b68fb85ed929f73a960582',
@@ -16,5 +16,6 @@ module.exports = {
         } else {
             return 56;
         }
-    }
+    },
+    ONEINCH_AUTH_TOKEN: 'I00gf2qW3ebQSNZrcLrfmZelxmLxqdyL'
 }
