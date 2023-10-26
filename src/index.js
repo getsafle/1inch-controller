@@ -34,15 +34,17 @@ class OneInch {
         }
         const toToken = web3Utils.toChecksumAddress(toContractAddress)
         const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
-        const URL = `${url}/quote?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
-        const { response, error } = await helper.getRequest({ url: URL });
+        const URL = `${url}/quote?src=${fromToken}&dst=${toToken}&amount=${fromQuantity}&includeGas=true`
+        const { response, error } = await helper.getRequest({ url: URL, headers: {Authorization: `Bearer ${config.ONEINCH_AUTH_TOKEN}` } });
         if (error)
             return error.description
 
-        delete response['toToken'];
-        delete response['fromToken'];
-        delete response['protocols']
-        return response;
+        const obj ={
+            estimatedGas: response.gas,
+            toTokenAmount: response.toAmount,
+            fromTokenAmount: fromQuantity.toString()
+        }    
+        return obj;
     }
 
     async getEstimatedGas({ toContractAddress, fromContractAddress, fromQuantity }) {
@@ -53,11 +55,11 @@ class OneInch {
         }
         const toToken = web3Utils.toChecksumAddress(toContractAddress)
         const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
-        const URL = `${url}/quote?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${fromQuantity}`
-        const { response, error } = await helper.getRequest({ url: URL });
+        const URL = `${url}/quote?src=${fromToken}&dst=${toToken}&amount=${fromQuantity}&includeGas=true`
+        const { response, error } = await helper.getRequest({ url: URL, headers: {Authorization: `Bearer ${config.ONEINCH_AUTH_TOKEN}` } });
         if (error)
         return error.description
-        return { estimatedGas: response.estimatedGas };
+        return { estimatedGas: response.gas };
     }
     catch(error){
         return {error}
@@ -72,10 +74,9 @@ class OneInch {
         const _toContractAddress = web3Utils.toChecksumAddress(toContractAddress)
         const _fromContractAddress = web3Utils.toChecksumAddress(fromContractAddress)
         const _walletAddress = web3Utils.toChecksumAddress(walletAddress)
-        const URL = `${url}/swap?fromTokenAddress=${_fromContractAddress}&toTokenAddress=${_toContractAddress}&amount=${fromQuantity}&fromAddress=${_walletAddress}&slippage=${slippageTolerance}`
-        const { response, error } = await helper.getRequest({ url: URL });
-
-        if (error && error[0].data.description.includes(`Not enough ${fromContractAddress} balance.`)) {
+        const URL = `${url}/swap?src=${_fromContractAddress}&dst=${_toContractAddress}&amount=${fromQuantity}&from=${_walletAddress}&slippage=${slippageTolerance}`
+        const { response, error } = await helper.getRequest({ url: URL, headers: {Authorization: `Bearer ${config.ONEINCH_AUTH_TOKEN}` } });
+        if (error && error.description.includes(`Not enough ${fromContractAddress} balance.`)) {
             return helper.setErrorResponse({ message: 'Insufficient balance.' })
         } else if (error) {
             return error.description
@@ -123,7 +124,7 @@ class OneInch {
                 }
                 const fromToken = web3Utils.toChecksumAddress(fromContractAddress)
                 const URL = `${url}/approve/transaction?tokenAddress=${fromToken}&amount=${fromQuantity}`
-                const { response, error } = await helper.getRequest({ url: URL });
+                const { response, error } = await helper.getRequest({ url: URL, headers: {Authorization: `Bearer ${config.ONEINCH_AUTH_TOKEN}` } });
                 if (error)
                 return error.description
 

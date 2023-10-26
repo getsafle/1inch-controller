@@ -97,3 +97,7 @@
 ### 1.2.0 (2023-10-11)
 
 - Updated error handling from 1Inch API's
+### 1.2.1 (2023-10-26)
+
+- Updated 1Inch API's to v5.2
+- Updated @getsafle/safle-token-lists package to v1.0.4
