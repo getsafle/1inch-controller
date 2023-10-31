@@ -1,13 +1,13 @@
 const axios = require('axios');
 const { ERROR_MESSAGES: { TOKEN_PAIR_DOESNOT_EXIST, INVALID_CHAIN_ERORR, INSUFFICIENT_BALANCE } } = require('./const');
-const { ONEINCH_BASE_URL, ETH_RPC, POLYGON_RPC, BSC_RPC, ETH_GAS_API, POLYGON_GAS_API } = require('../config');
+const { ONEINCH_BASE_URL, ETH_RPC, POLYGON_RPC, BSC_RPC, ETH_GAS_API, POLYGON_GAS_API, PROXY_SERVICE_BASE_URL } = require('../config');
 
-const getRequest = async ({ url, headers }) => {
+const getRequest = async ({ url, token }) => {
     try {
+        const URL = `${PROXY_SERVICE_BASE_URL}?url=${url}&token=${token}&tokenType=Bearer`;
         const response = await axios({
-            url: `${url}`,
+            url: URL,
             method: 'GET',
-            headers
         });
         return { response: response.data };
     } catch (error) {

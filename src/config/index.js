@@ -17,5 +17,6 @@ module.exports = {
             return 56;
         }
     },
-    ONEINCH_AUTH_TOKEN: 'I00gf2qW3ebQSNZrcLrfmZelxmLxqdyL'
+    ONEINCH_AUTH_TOKEN: 'I00gf2qW3ebQSNZrcLrfmZelxmLxqdyL',
+    PROXY_SERVICE_BASE_URL: 'https://proxy.getsafle.com'
 }
