@@ -101,3 +101,8 @@
 
 - Updated 1Inch API's to v5.2
 - Updated @getsafle/safle-token-lists package to v1.0.4
+
+### 1.2.2 (2023-10-31)
+
+- Integrated proxy service
+- Updated @getsafle/safle-token-lists package to v1.0.5
